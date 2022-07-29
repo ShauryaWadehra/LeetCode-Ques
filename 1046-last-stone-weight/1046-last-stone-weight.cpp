@@ -10,7 +10,7 @@ public:
             mxhp.pop();
             int s = mxhp.top();
             mxhp.pop();
-            if(f!=s){
+            if(f>s){
                 mxhp.push(f-s);
             }
         }

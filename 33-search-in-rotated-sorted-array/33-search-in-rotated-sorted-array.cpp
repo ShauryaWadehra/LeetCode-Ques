@@ -1,20 +1,6 @@
 class Solution {
 public:
-    int bins(vector<int>& nums,int target){
-        int low = 0;
-        int high = nums.size()-1;
-        while(low<=high){
-            int mid = (low + high)/2;
-        if(nums[mid] == target){
-            return mid;
-        }else if(nums[mid] < target){
-            low = mid + 1;
-        }else{
-            high = mid - 1;
-            }
-        }
-        return -1;
-    }
+    
     int bin(vector<int>& nums, int low, int high, int target){
         while(low<=high){
             int mid = (low + high)/2;
@@ -36,7 +22,7 @@ public:
         for(int i =1;i<nums.size();i++){
             if(nums[i]>=nums[i-1]){
                 if(i == nums.size()-1){
-                    return bins(nums,target);
+                    return bin(nums,0,nums.size()-1,target);
                 }
                 continue;
             }else{

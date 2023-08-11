@@ -11,6 +11,6 @@ public:
                 }
             }
         }
-        return dp.back();
+        return dp[s.size()];
     }
 };

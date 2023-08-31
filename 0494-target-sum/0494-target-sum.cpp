@@ -6,7 +6,6 @@ public:
         if (abs(target) > totalSum) {
             return 0;
         }
-
         int n = nums.size();
         vector<int> dp(2 * totalSum + 1, 0);
         dp[totalSum] = 1; // Base case
@@ -21,7 +20,6 @@ public:
             }
             dp = nextDp;
         }
-
         return dp[totalSum + target];
     }
 };

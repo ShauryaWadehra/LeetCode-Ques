@@ -1,17 +1,30 @@
-class Solution {
+class Solution
+{
 public:
-    int f(vector<int>& nums, int target,int index,int total, map<pair<int, int>, int> &dp){
-        if (index == nums.size()) {
-            return total == target ? 1 : 0;
+    int findTargetSumWays(vector<int> &nums, int target)
+    {
+        int totalSum = accumulate(nums.begin(), nums.end(), 0);
+        if (abs(target) > totalSum)
+        {
+            return 0;
         }
-        if (dp.find({index, total}) != dp.end()) {
-            return dp[{index, total}];
+
+        int n = nums.size();
+        vector<unordered_map<int, int>> dp(n + 1);
+
+        dp[0][0] = 1; // Base case
+
+        for (int i = 1; i <= n; ++i)
+        {
+            int num = nums[i - 1];
+            for (const auto &entry : dp[i - 1])
+            {
+                int sum = entry.first;
+                dp[i][sum + num] += entry.second;
+                dp[i][sum - num] += entry.second;
+            }
         }
-        dp[{index, total}] = f(nums,target,index+1,total+nums[index],dp) + f(nums,target,index+1,total-nums[index],dp);
-        return dp[{index, total}]; 
-    }
-    int findTargetSumWays(vector<int>& nums, int target) {
-        map<pair<int, int>, int> dp;
-        return f(nums,target,0,0,dp);
+
+        return dp[n][target];
     }
 };

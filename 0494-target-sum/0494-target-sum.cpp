@@ -1,30 +1,27 @@
 class Solution
 {
 public:
-    int findTargetSumWays(vector<int> &nums, int target)
-    {
-        int totalSum = accumulate(nums.begin(), nums.end(), 0);
-        if (abs(target) > totalSum)
-        {
-            return 0;
-        }
+    int findTargetSumWays(vector<int>& nums, int target) {
+    int totalSum = accumulate(nums.begin(), nums.end(), 0);
+    if (abs(target) > totalSum) {
+        return 0;
+    }
 
-        int n = nums.size();
-        vector<unordered_map<int, int>> dp(n + 1);
+    int n = nums.size();
+    vector<int> dp(2 * totalSum + 1, 0);
+    dp[totalSum] = 1; // Base case
 
-        dp[0][0] = 1; // Base case
-
-        for (int i = 1; i <= n; ++i)
-        {
-            int num = nums[i - 1];
-            for (const auto &entry : dp[i - 1])
-            {
-                int sum = entry.first;
-                dp[i][sum + num] += entry.second;
-                dp[i][sum - num] += entry.second;
+    for (int num : nums) {
+        vector<int> nextDp(2 * totalSum + 1, 0);
+        for (int i = 0; i < dp.size(); ++i) {
+            if (dp[i] > 0) {
+                nextDp[i + num] += dp[i];
+                nextDp[i - num] += dp[i];
             }
         }
-
-        return dp[n][target];
+        dp = nextDp;
     }
+
+    return dp[totalSum + target];
+}
 };

@@ -7,8 +7,8 @@ public:
         int n = nums.size();
         vector<vector<int>> dp(n,vector<int>(n,0));
         for(int l = n-2;l>=1;l--){
-            for(int r = 1;r<=n-2;r++){
-                if(l>r)continue;
+            for(int r = l;r<=n-2;r++){
+                 
                 int coins = 0;
                 for(int i = l;i<=r;i++){
                     coins = nums[l-1]*nums[i]*nums[r+1] + dp[l][i-1] +  dp[i+1][r];

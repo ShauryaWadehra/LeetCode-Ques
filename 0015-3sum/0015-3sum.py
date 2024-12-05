@@ -3,6 +3,8 @@ class Solution:
         res = []
         nums.sort()
         for i,a in enumerate(nums):
+            if nums[i]>0:
+                break
             if i >0 and a == nums[i-1]:
                 continue
             l,r = i+1,len(nums)-1

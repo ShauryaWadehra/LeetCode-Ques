@@ -9,4 +9,4 @@ class Solution:
             if r - l + 1 - maxcount > k:
                 count[s[l]]-=1
                 l+=1
-        return len(s)-l
+        return r-l+1
